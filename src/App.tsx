@@ -122,8 +122,13 @@ const RecitationDisplay = ({ text }: { text: string }) => {
 export default function App() {
   const [selectedNight, setSelectedNight] = useState<number>(1);
   const [currentNight, setCurrentNight] = useState<number>(1);
+  const [isWidget, setIsWidget] = useState(false);
 
   useEffect(() => {
+    // Check for widget mode
+    const params = new URLSearchParams(window.location.search);
+    setIsWidget(params.get('widget') === 'true');
+
     const now = new Date();
     const diff = now.getTime() - RAMADAN_START.getTime();
     const night = Math.max(1, Math.min(30, Math.floor(diff / (24 * 60 * 60 * 1000)) + 1));
@@ -145,37 +150,39 @@ export default function App() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-500/20 via-transparent to-transparent blur-3xl" />
       </div>
 
-      <main className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col min-h-screen">
+      <main className={`relative z-10 max-w-4xl mx-auto px-6 flex flex-col min-h-screen ${isWidget ? 'py-6' : 'py-12'}`}>
         {/* Header */}
-        <header className="mb-12 text-center">
+        <header className={isWidget ? 'mb-6 text-center' : 'mb-12 text-center'}>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-widest font-semibold text-amber-400 mb-4"
           >
             <Calendar className="w-3 h-3" />
-            Ramadan 1447 - 2026
+            Ramadan 2026
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-4 text-glow"
+            className={`${isWidget ? 'text-3xl' : 'text-5xl md:text-7xl'} font-serif font-bold tracking-tight mb-2 text-glow`}
           >
             Nafila <span className="italic text-amber-400">Ramadan</span>
           </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-white/50 text-sm max-w-md mx-auto"
-          >
-            Guide spirituel des prières surérogatoires pour chaque nuit du mois béni.
-          </motion.p>
+          {!isWidget && (
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-white/50 text-sm max-w-md mx-auto"
+            >
+              Guide spirituel des prières surérogatoires pour chaque nuit du mois béni.
+            </motion.p>
+          )}
         </header>
 
         {/* Night Selector Grid/Scroll */}
-        <div className="mb-12">
+        <div className={isWidget ? 'mb-6' : 'mb-12'}>
           <div className="flex items-center justify-between mb-4 px-2">
             <h2 className="text-xs uppercase tracking-widest font-bold text-white/40">Choisir une nuit</h2>
             <div className="flex items-center gap-2 text-[10px] text-amber-400/60">
@@ -229,54 +236,56 @@ export default function App() {
               )}
 
               <div className="relative z-10">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20">
-                    <Moon className="w-8 h-8" />
+                <div className={`flex items-center gap-6 ${isWidget ? 'mb-4' : 'mb-8'}`}>
+                  <div className={`${isWidget ? 'w-12 h-12' : 'w-16 h-16'} rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20`}>
+                    <Moon className={isWidget ? 'w-6 h-6' : 'w-8 h-8'} />
                   </div>
                   <div>
-                    <h3 className="text-4xl font-serif font-bold mb-1">
+                    <h3 className={`${isWidget ? 'text-2xl' : 'text-4xl'} font-serif font-bold mb-1`}>
                       Nuit <span className="text-amber-400">{selectedNight}</span>
                     </h3>
-                    <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">
-                      {selectedNight === 1 ? 'Première nuit' : `${selectedNight}ème nuit`} du Ramadan
+                    <p className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
+                      {selectedNight === 1 ? 'Première nuit' : `${selectedNight}ème nuit`}
                     </p>
                   </div>
                 </div>
 
-                <div className="grid md:grid-rows-3 gap-8">
+                <div className={`grid ${isWidget ? 'gap-4' : 'gap-8'}`}>
                   {/* Rakkas */}
                   <div className="group">
-                    <div className="flex items-center gap-3 mb-3 text-amber-400/80">
-                      <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
-                        <Info className="w-4 h-4" />
+                    <div className="flex items-center gap-3 mb-2 text-amber-400/80">
+                      <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
+                        <Info className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Nombre de Rakkas</span>
+                      <span className="text-[9px] uppercase tracking-[0.2em] font-bold">Rakkas</span>
                     </div>
-                    <p className="text-xl md:text-2xl font-medium pl-11 leading-relaxed">
+                    <p className={`${isWidget ? 'text-base' : 'text-xl md:text-2xl'} font-medium pl-10 leading-relaxed`}>
                       {prayer?.rakkas}
                     </p>
                   </div>
 
                   {/* Recitations */}
                   <div className="group">
-                    <div className="flex items-center gap-3 mb-3 text-amber-400/80">
-                      <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
-                        <BookOpen className="w-4 h-4" />
+                    <div className="flex items-center gap-3 mb-2 text-amber-400/80">
+                      <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
+                        <BookOpen className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Récitations</span>
+                      <span className="text-[9px] uppercase tracking-[0.2em] font-bold">Récitations</span>
                     </div>
-                    <RecitationDisplay text={prayer?.recitation || ''} />
+                    <div className={isWidget ? 'pl-0' : ''}>
+                      <RecitationDisplay text={prayer?.recitation || ''} />
+                    </div>
                   </div>
 
                   {/* Rewards */}
                   <div className="group">
-                    <div className="flex items-center gap-3 mb-3 text-amber-400/80">
-                      <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
-                        <Trophy className="w-4 h-4" />
+                    <div className="flex items-center gap-3 mb-2 text-amber-400/80">
+                      <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 transition-colors">
+                        <Trophy className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Mérites & Bienfaits</span>
+                      <span className="text-[9px] uppercase tracking-[0.2em] font-bold">Mérites</span>
                     </div>
-                    <p className="text-lg md:text-xl font-medium pl-11 leading-relaxed text-amber-100/90">
+                    <p className={`${isWidget ? 'text-sm' : 'text-lg md:text-xl'} font-medium pl-10 leading-relaxed text-amber-100/90`}>
                       {prayer?.reward}
                     </p>
                   </div>
