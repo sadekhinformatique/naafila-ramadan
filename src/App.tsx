@@ -12,38 +12,134 @@ import {
   Info
 } from 'lucide-react';
 
-// Prayer data from user
+// Prayer data from KHOURATOULAYNI
 const PRAYERS = [
-  { night: 1, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 2 Khoul ya ayouhal kafirouna, 2 Khoul hou allahou ahad", reward: "La chair sera préservée de la flamme de l’Enfer." },
-  { night: 2, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 5 Inna a’taïlnaka", reward: "Les péchés sont annulés, grandes grâces accordées." },
-  { night: 3, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 1 Inna anzal nahou", reward: "Récompenses équivalentes à libérer mille esclaves." },
-  { night: 4, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 3 Khoul ya ayouhal kafirouna", reward: "Péchés effacés sur place." },
-  { night: 5, rakkas: "8 rakkas (4 sallama)", recitation: "1 Fatiha, 1 Alam nasra, 3 Khoul hou allahou ahad", reward: "Anges inscrivent mérites et effacent actions mauvaises." },
-  { night: 6, rakkas: "2 rakkas (1 sallama)", recitation: "1 Fatiha, 10 Khoul hou allahou ahad", reward: "Guidé par lumière vers le Paradis." },
-  { night: 7, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 7 Khoul ya ayouhal kafirouna, 7 Khoul hou allahou ahad", reward: "Récompenses considérables et entrée au ciel." },
-  { night: 8, rakkas: "2 rakkas (1 sallama)", recitation: "1 Fatiha, 12 Khoul hou allahou ahad, 12 Khoul aouzou birabbil nassi", reward: "Mérites équivalents à mille ans d’adoration." },
-  { night: 9, rakkas: "8 rakkas (4 sallama)", recitation: "1 Fatiha, 3 Tabat yadha, 3 Khoul hou allahou ahad", reward: "Paradis grandement ouvert." },
-  { night: 10, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, Ayatoul Koursiyou, Inna anzal nahou, 12 Khoul hou allahou ahad", reward: "Péchés effacés et 70 personnes graciées." },
-  { night: 11, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 7 Inna anzal nahou, 7 Khoul hou allahou ahad, puis 70 La hawla… et 70 Allahouma salli…", reward: "Pardon complet des péchés et protection spirituelle." },
-  { night: 12, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 6 Khoul hou allahou ahad", reward: "Mille étages de paradis construits en bijoux." },
-  { night: 13, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 7 Issadja a nasroulahi, 7 Khoul hou allahou ahad", reward: "Récompense infinie et 7 châteaux précieux." },
-  { night: 14, rakkas: "8 rakkas (4 sallama)", recitation: "1 Fatiha, 7 Issadja a nasroulahi, 7 Khoul hou allahou ahad, puis 70 La hawla…", reward: "Préservé de la peur du jour de la résurrection." },
-  { night: 15, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 1 Issadja a nasroulahi, 35 Khoul hou allahou ahad", reward: "DIEU exaucera comme demandé." },
-  { night: 16, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 10 Izza zoulzilati ardi", reward: "Péchés pardonnés, protection divine." },
-  { night: 17, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 2 Inna anzal nahou, 2 Khoul hou allahou ahad", reward: "Considéré comme vrai croyant." },
-  { night: 18, rakkas: "12 rakkas (6 sallama)", recitation: "1 Fatiha, 1 Sabisma rabbika lahla, 1 Khoul ya ayouhal kafirouna, 1 Khoul hou allahou ahad", reward: "Récompense de richesse dépensée sur la voie de DIEU." },
-  { night: 19, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 7 Khoul hou allahou ahad", reward: "Prières acceptées et entrée rapide au Paradis." },
-  { night: 20, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 3 Inna anzal nahou, 3 Khoul hou allahou ahad", reward: "Considéré comme ayant jeûné 50 ans." },
-  { night: 21, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 10 Khoul hou allahou ahad", reward: "Récompenses équivalentes à grands dons et lecture des livres sacrés." },
-  { night: 22, rakkas: "2 rakkas (1 sallama)", recitation: "1 Fatiha, 1 Sabisma rabbika lahla, 3 Khoul aouzou birabbil nassi", reward: "70 cités de Paradis construites." },
-  { night: 23, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 5 Issadja a nasroulahi, 5 Khoul hou allahou ahad", reward: "Péchés pardonnés et lumière jusqu’au Paradis." },
-  { night: 24, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 6 Khoul aouzou birabbil falakhi, 6 Khoul aouzou birabbil nassi", reward: "Facilité le jour de la résurrection." },
-  { night: 25, rakkas: "8 rakkas (4 sallama)", recitation: "1 Fatiha, 4 Khoul hou allahou ahad", reward: "Pardon immédiat et mérite de mille ans." },
-  { night: 26, rakkas: "10 rakkas (5 sallama)", recitation: "1 Fatiha, 5 Khoul hou allahou ahad, puis 22 Astakhfiroulahi", reward: "Récompenses égales aux prières innombrables." },
-  { night: 27, rakkas: "12 rakkas (6 sallama)", recitation: "1 Fatiha, 10 Inna anzal nahou", reward: "Récompenses incalculables (Laylatoul khadr)." },
-  { night: 28, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 1 Watini wa zaytouni, 1 Khoul ya ayouhal kafirouna, 5 Khoul hou allahou ahad, puis 100 Astakhfiroulahi et 100 Allahouma salli…", reward: "Péchés anciens et futurs pardonnés." },
-  { night: 29, rakkas: "6 rakkas (3 sallama)", recitation: "1 Fatiha, 10 Khoul hou allahou ahad", reward: "70 000 édifices en diamant construits au Paradis." },
-  { night: 30, rakkas: "4 rakkas (2 sallama)", recitation: "1 Fatiha, 25 Khoul ya ayouhal kafirouna", reward: "À l’abri de l’enfer et proches pardonnés." }
+  {
+    night: 0,
+    label: "Nuit précédant le 1er jour",
+    rakkas: "10 rakkas",
+    recitations: ["Al-Fatiha", "Al-Kafirun", "Al-Ikhlas"],
+    reward: "Allah lui pardonne ses péchés passés et futurs et lui accorde une grande lumière dans sa tombe."
+  },
+  {
+    night: 1,
+    label: "Nuit du 1 au 2",
+    rakkas: "6 rakkas",
+    recitations: ["Al-Fatiha", "Inna A‘tayna"],
+    reward: "Il sera purifié de ses péchés comme au jour de sa naissance."
+  },
+  {
+    night: 2,
+    label: "Nuit du 2 au 3",
+    rakkas: "4 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il recevra la récompense de celui qui a jeûné toute sa vie."
+  },
+  {
+    night: 3,
+    label: "Nuit du 3 au 4",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Al-Kafirun"],
+    reward: "Allah lui élève son rang au Paradis."
+  },
+  {
+    night: 4,
+    label: "Nuit du 4 au 5",
+    rakkas: "8 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il bénéficiera d’une protection contre le châtiment de la tombe."
+  },
+  {
+    night: 5,
+    label: "Nuit du 5 au 6",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il sera protégé contre les épreuves du Jour du Jugement."
+  },
+  {
+    night: 6,
+    label: "Nuit du 6 au 7",
+    rakkas: "4 rakkas",
+    recitations: ["Al-Fatiha", "Sabbihisma"],
+    reward: "Il recevra la récompense de mille martyrs."
+  },
+  {
+    night: 7,
+    label: "Nuit du 7 au 8",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Ses invocations seront exaucées."
+  },
+  {
+    night: 8,
+    label: "Nuit du 8 au 9",
+    rakkas: "12 rakkas",
+    recitations: ["Al-Fatiha", "Inna Anzalnahou"],
+    reward: "Il aura la récompense d’avoir adoré Allah toute sa vie."
+  },
+  {
+    night: 9,
+    label: "Nuit du 9 au 10",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Al-Kafirun", "Al-Ikhlas"],
+    reward: "Allah lui ouvre les portes du Paradis."
+  },
+  {
+    night: 10,
+    label: "Nuit du 10 au 11",
+    rakkas: "6 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il sera compté parmi les véridiques."
+  },
+  {
+    night: 11,
+    label: "Nuit du 11 au 12",
+    rakkas: "8 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il recevra un immense pardon divin."
+  },
+  {
+    night: 12,
+    label: "Nuit du 12 au 13",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Inna A‘tayna"],
+    reward: "Ses péchés seront effacés."
+  },
+  {
+    night: 13,
+    label: "Nuit du 13 au 14",
+    rakkas: "4 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il sera élevé en degrés au Paradis."
+  },
+  {
+    night: 14,
+    label: "Nuit du 14 au 15",
+    rakkas: "6 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Il bénéficiera d’une grande lumière au Jour du Jugement."
+  },
+  {
+    night: 15,
+    label: "Nuit du 15 au 16",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Al-Ikhlas"],
+    reward: "Allah lui accorde Sa miséricorde."
+  },
+  {
+    night: 16,
+    label: "Nuit du 16 au 17",
+    rakkas: "2 rakkas",
+    recitations: ["Al-Fatiha", "Inna Anzalnahou", "Al-Ikhlas"],
+    reward: "Il recevra une récompense immense comparable à celle des pieux serviteurs."
+  },
+  {
+    night: 17,
+    label: "Nuit du 17 au 18",
+    rakkas: "10 rakkas",
+    recitations: ["Al-Fatiha", "Sabbihisma", "Al-Kafirun", "Al-Ikhlas"],
+    reward: "Il sera sauvé du Feu et inscrit parmi les bienheureux."
+  }
 ];
 
 const RAMADAN_START = new Date("2026-02-19T00:00:00");
@@ -51,9 +147,13 @@ const RAMADAN_START = new Date("2026-02-19T00:00:00");
 const SURAH_MAP: Record<string, string> = {
   "fatiha": "Al-Fatiha",
   "khoul hou allahou ahad": "Al-Ikhlas",
+  "ikhlass": "Al-Ikhlas",
   "khoul ya ayouhal kafirouna": "Al-Kafirun",
+  "kafirouna": "Al-Kafirun",
   "inna anzal nahou": "Al-Qadr",
+  "anzalnahou": "Al-Qadr",
   "inna a’taïlnaka": "Al-Kawthar",
+  "atayna": "Al-Kawthar",
   "alam nasra": "Ash-Sharh",
   "khoul aouzou birabbil nassi": "An-Nas",
   "khoul aouzou birabbil falakhi": "Al-Falaq",
@@ -61,6 +161,7 @@ const SURAH_MAP: Record<string, string> = {
   "issadja a nasroulahi": "An-Nasr",
   "izza zoulzilati ardi": "Az-Zalzalah",
   "sabisma rabbika lahla": "Al-A'la",
+  "sabbihisma": "Al-A'la",
   "watini wa zaytouni": "At-Tin",
   "ayatoul koursiyou": "Ayat al-Kursi",
   "astakhfiroulahi": "Istighfar",
@@ -68,14 +169,12 @@ const SURAH_MAP: Record<string, string> = {
   "la hawla": "Hawqala"
 };
 
-const RecitationDisplay = ({ text }: { text: string }) => {
-  if (!text) return null;
-
-  const parts = text.split(/[,]| puis | et /).map(p => p.trim()).filter(Boolean);
+const RecitationDisplay = ({ recitations }: { recitations: string[] }) => {
+  if (!recitations || recitations.length === 0) return null;
 
   return (
     <div className="flex flex-wrap gap-4 pl-11">
-      {parts.map((part, index) => {
+      {recitations.map((part, index) => {
         const match = part.match(/^(\d+)\s+(.*)$/);
         const count = match ? match[1] : null;
         const rawName = match ? match[2] : part;
@@ -131,15 +230,15 @@ export default function App() {
 
     const now = new Date();
     const diff = now.getTime() - RAMADAN_START.getTime();
-    const night = Math.max(1, Math.min(30, Math.floor(diff / (24 * 60 * 60 * 1000)) + 1));
+    const night = Math.max(0, Math.min(17, Math.floor(diff / (24 * 60 * 60 * 1000)) + 1));
     setCurrentNight(night);
     setSelectedNight(night);
   }, []);
 
   const prayer = useMemo(() => PRAYERS.find(p => p.night === selectedNight), [selectedNight]);
 
-  const handleNext = () => setSelectedNight(prev => Math.min(30, prev + 1));
-  const handlePrev = () => setSelectedNight(prev => Math.max(1, prev - 1));
+  const handleNext = () => setSelectedNight(prev => Math.min(17, prev + 1));
+  const handlePrev = () => setSelectedNight(prev => Math.max(0, prev - 1));
 
   return (
     <div className="min-h-screen bg-[#0a0502] text-white/90 selection:bg-amber-500/30 overflow-hidden relative">
@@ -220,21 +319,8 @@ export default function App() {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className={`
                 relative glass rounded-[2.5rem] p-8 md:p-12 overflow-hidden
-                ${selectedNight === 27 ? 'ring-2 ring-amber-400/30' : ''}
               `}
             >
-              {/* Special Badge for Laylatoul Qadr */}
-              {selectedNight === 27 && (
-                <motion.div 
-                  initial={{ rotate: -10, scale: 0 }}
-                  animate={{ rotate: -5, scale: 1 }}
-                  className="absolute top-6 right-6 bg-amber-400 text-black px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter flex items-center gap-1 shadow-xl z-20"
-                >
-                  <Sparkles className="w-3 h-3" />
-                  Laylatoul Qadr
-                </motion.div>
-              )}
-
               <div className="relative z-10">
                 <div className={`flex items-center gap-6 ${isWidget ? 'mb-4' : 'mb-8'}`}>
                   <div className={`${isWidget ? 'w-12 h-12' : 'w-16 h-16'} rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20`}>
@@ -242,10 +328,10 @@ export default function App() {
                   </div>
                   <div>
                     <h3 className={`${isWidget ? 'text-2xl' : 'text-4xl'} font-serif font-bold mb-1`}>
-                      Nuit <span className="text-amber-400">{selectedNight}</span>
+                      {prayer?.label || `Nuit ${selectedNight}`}
                     </h3>
                     <p className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
-                      {selectedNight === 1 ? 'Première nuit' : `${selectedNight}ème nuit`}
+                      {selectedNight === 0 ? 'Nuit de veille' : `${selectedNight}ème nuit`}
                     </p>
                   </div>
                 </div>
@@ -273,7 +359,7 @@ export default function App() {
                       <span className="text-[9px] uppercase tracking-[0.2em] font-bold">Récitations</span>
                     </div>
                     <div className={isWidget ? 'pl-0' : ''}>
-                      <RecitationDisplay text={prayer?.recitation || ''} />
+                      <RecitationDisplay recitations={prayer?.recitations || []} />
                     </div>
                   </div>
 
@@ -303,7 +389,7 @@ export default function App() {
         <div className="mt-12 flex items-center justify-between">
           <button 
             onClick={handlePrev}
-            disabled={selectedNight === 1}
+            disabled={selectedNight === 0}
             className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40 hover:text-amber-400 disabled:opacity-20 transition-colors group"
           >
             <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -311,14 +397,14 @@ export default function App() {
           </button>
           
           <div className="flex gap-1">
-            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight <= 10 ? 'bg-amber-500' : 'bg-white/10'}`} />
-            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight > 10 && selectedNight <= 20 ? 'bg-amber-500' : 'bg-white/10'}`} />
-            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight > 20 ? 'bg-amber-500' : 'bg-white/10'}`} />
+            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight <= 5 ? 'bg-amber-500' : 'bg-white/10'}`} />
+            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight > 5 && selectedNight <= 11 ? 'bg-amber-500' : 'bg-white/10'}`} />
+            <div className={`w-1.5 h-1.5 rounded-full ${selectedNight > 11 ? 'bg-amber-500' : 'bg-white/10'}`} />
           </div>
 
           <button 
             onClick={handleNext}
-            disabled={selectedNight === 30}
+            disabled={selectedNight === 17}
             className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40 hover:text-amber-400 disabled:opacity-20 transition-colors group"
           >
             Suivant
